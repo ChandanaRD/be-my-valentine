@@ -1,167 +1,221 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Will You Be My Valentine? 💙</title>
+    <title>For Bubu 💙</title>
 
     <style>
         body {
             margin: 0;
+            padding: 0;
             font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #0a1f44, #000814 70%);
+            color: #e6f2ff;
             text-align: center;
-            background: linear-gradient(135deg, #000000, #0f2027, #203a43, #2c5364);
-            overflow-x: hidden;
-            color: #e0f7ff;
+            overflow: hidden;
         }
 
-        h1 {
-            font-size: 50px;
-            margin-top: 60px;
-            color: #4fc3f7;
+        /* Password screen */
+        #lockScreen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000, #0a1f44);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
         }
 
-        p {
-            font-size: 22px;
-            color: #b3e5fc;
+        input {
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            margin-top: 10px;
+            text-align: center;
         }
 
         button {
-            background-color: #0288d1;
+            background-color: #0d47a1;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 12px 30px;
+            font-size: 16px;
             border-radius: 25px;
             cursor: pointer;
-            margin: 10px;
+            margin-top: 15px;
             transition: 0.3s;
         }
 
         button:hover {
-            background-color: #03a9f4;
-            transform: scale(1.1);
+            background-color: #1565c0;
+            transform: scale(1.05);
         }
 
-        #response {
-            margin-top: 30px;
-            font-size: 24px;
-            color: #81d4fa;
+        .content {
+            position: relative;
+            z-index: 1;
+            margin-top: 140px;
+            display: none;
         }
 
-        /* Quote section */
-        #quote {
+        .stars span {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%,100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        #typing {
+            font-size: 26px;
+        }
+
+        .yes-text {
+            font-size: 90px;
             margin-top: 40px;
-            font-style: italic;
-            font-size: 20px;
-            color: #b3e5fc;
+            color: #66ccff;
+            text-shadow: 0 0 40px #1e90ff;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
         }
 
-        /* Gallery */
-        .gallery {
-            margin-top: 50px;
+        .message {
+            font-size: 22px;
+            margin: 20px 40px;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
         }
 
-        .gallery img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            margin: 10px;
+        .photo {
+            margin-top: 30px;
+            opacity: 0;
+            transition: opacity 3s ease-in-out;
+        }
+
+        .photo img {
+            width: 250px;
             border-radius: 20px;
-            border: 2px solid #03a9f4;
-            transition: 0.3s;
+            box-shadow: 0 0 30px #1e90ff;
         }
 
-        .gallery img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px #03a9f4;
-        }
-
-        /* Floating hearts */
         .heart {
             position: fixed;
             bottom: -10px;
             font-size: 24px;
-            animation: float 5s linear infinite;
+            animation: float 6s linear infinite;
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-800px);
-                opacity: 0;
-            }
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-900px); opacity: 0; }
         }
     </style>
 </head>
 
 <body>
 
-    <h1>Hey My Favorite Human 💙</h1>
-    <p>Will you be my Valentine?</p>
+<!-- Password Screen -->
+<div id="lockScreen">
+    <h2>Enter the your contact name on my phone 💙</h2>
+    <input type="password" id="password" placeholder="Nickname">
+    <button onclick="checkPassword()">Unlock</button>
+    <p id="error" style="color:#ff8080;"></p>
+</div>
 
-    <button onclick="sayYes()">Yes 💙</button>
-    <button onclick="sayNo()">No 🖤</button>
+<!-- Main Content -->
+<div class="content" id="mainContent">
+    <div id="typing"></div>
 
-    <div id="response"></div>
+    <div class="yes-text" id="yes">YES 💙</div>
 
-    <div id="quote"></div>
-
-    <!-- Photo Gallery -->
-    <div class="gallery">
-        <h2 style="color:#4fc3f7;">Our Memories 🖤</h2>
-        <img src="photo1.jpg">
-        <img src="photo2.jpg">
-        <img src="photo3.jpg">
+    <div class="message" id="message">
+        I would love to be your Valentine, Bubu. 🖤  
+        You chose me… and I choose you —  
+        today, tomorrow, and always.
     </div>
 
-    <script>
-        // Quotes
-        const quotes = [
-            "You’re my calm in every storm 💙",
-            "With you, everything feels right 🖤",
-            "You’re my favorite place to be 💫",
-            "Forever looks good on us 💙",
-            "I’d choose you in every universe 🌌"
-        ];
+    <div class="photo" id="photo">
+        <!-- Replace with your photo filename -->
+        <img src="photo1.jpg" alt="Us 💙">
+    </div>
 
-        let quoteIndex = 0;
+    <button onclick="celebrate()">Forever Yours 💫</button>
+</div>
 
-        function rotateQuotes() {
-            document.getElementById("quote").innerHTML = quotes[quoteIndex];
-            quoteIndex = (quoteIndex + 1) % quotes.length;
+<script>
+    function checkPassword() {
+        const input = document.getElementById("password").value;
+        if (input.toLowerCase() === "cutie patootie") {
+            document.getElementById("lockScreen").style.display = "none";
+            document.getElementById("mainContent").style.display = "block";
+            generateStars();
+            typeWriter();
+        } else {
+            document.getElementById("error").innerHTML = "Hint: wassup cutie 💙";
         }
+    }
 
-        setInterval(rotateQuotes, 3000);
-        rotateQuotes();
-
-        function sayYes() {
-            document.getElementById("response").innerHTML =
-                "Best decision ever 💙 I can't wait for our special day.";
-            createHearts(30);
+    function generateStars() {
+        for (let i = 0; i < 100; i++) {
+            let star = document.createElement("span");
+            let size = Math.random() * 3;
+            star.style.width = size + "px";
+            star.style.height = size + "px";
+            star.style.top = Math.random() * 100 + "%";
+            star.style.left = Math.random() * 100 + "%";
+            star.style.position = "absolute";
+            star.style.background = "white";
+            star.style.borderRadius = "50%";
+            star.style.animationDuration = (2 + Math.random() * 3) + "s";
+            star.style.animationName = "twinkle";
+            document.body.appendChild(star);
         }
+    }
 
-        function sayNo() {
-            document.getElementById("response").innerHTML =
-                "System error 🖤 That option has been disabled 😉";
+    const text = "When you asked me to be your Valentine...";
+    let i = 0;
+
+    function typeWriter() {
+        if (i < text.length) {
+            document.getElementById("typing").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 60);
+        } else {
+            reveal();
         }
+    }
 
-        function createHearts(num) {
-            for (let i = 0; i < num; i++) {
-                let heart = document.createElement("div");
-                heart.className = "heart";
-                heart.innerHTML = "💙";
-                heart.style.left = Math.random() * 100 + "vw";
-                heart.style.animationDuration = (3 + Math.random() * 2) + "s";
-                document.body.appendChild(heart);
+    function reveal() {
+        document.getElementById("yes").style.opacity = 1;
+        document.getElementById("message").style.opacity = 1;
+        document.getElementById("photo").style.opacity = 1;
+    }
 
-                setTimeout(() => {
-                    heart.remove();
-                }, 5000);
-            }
+    function celebrate() {
+        createHearts(40);
+        alert("Always your Valentine 💙🖤");
+    }
+
+    function createHearts(num) {
+        for (let i = 0; i < num; i++) {
+            let heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "💙";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (4 + Math.random() * 2) + "s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
         }
-    </script>
+    }
+</script>
 
 </body>
 </html>
