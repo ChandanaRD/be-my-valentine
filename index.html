@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Will You Be My Valentine? ❤️</title>
+    <style>
+        body {
+            background-color: #ffdde1;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            font-size: 50px;
+        }
+
+        p {
+            font-size: 22px;
+        }
+
+        button {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #ff1e4d;
+        }
+
+        #response {
+            margin-top: 30px;
+            font-size: 24px;
+            color: #d6336c;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Hey Love ❤️</h1>
+    <p>Will you be my Valentine?</p>
+
+    <button onclick="sayYes()">Yes 💖</button>
+    <button onclick="sayNo()">No 😢</button>
+
+    <div id="response"></div>
+
+    <script>
+        function sayYes() {
+            document.getElementById("response").innerHTML = 
+                "YAY!!! I can't wait for our date 😍💘";
+        }
+
+        function sayNo() {
+            document.getElementById("response").innerHTML = 
+                "Error 404: Wrong Answer 😜 Try again 💕";
+        }
+    </script>
+
+</body>
+</html>
